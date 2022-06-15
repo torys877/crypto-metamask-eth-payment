@@ -1,0 +1,26 @@
+{
+    "name": "cryptom2/metamask-eth-payment",
+    "version": "v1.0.0",
+    "description": "Metamask & web3js Ethereum payment method Magento 2 module without any third party gateways",
+    "type": "magento2-module",
+    "authors": [
+        {
+            "name": "Ihor Oleksiienko",
+            "homepage": "https://github.com/torys877",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "cryptom2/base": "v1.0.0",
+        "cryptom2/currency-precision": "v1.0.0"
+    },
+    "license": "MIT",
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Crypto\\MetamaskEthPayment\\": ""
+        }
+    }
+}

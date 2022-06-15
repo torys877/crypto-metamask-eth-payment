@@ -1,0 +1,29 @@
+<?php
+/**
+* Copyright © Ihor Oleksiienko (https://github.com/torys877)
+* See LICENSE for license details.
+*/
+
+use Crypto\MetamaskEthPayment\ViewModel\PaymentButton;
+use Magento\Sales\Block\Order\Info;
+use Magento\Framework\Escaper;
+
+/** @var $block Info */
+/** @var $escaper Escaper */
+/** @var PaymentButton $viewModel */
+$viewModel = $block->getViewModel();
+?>
+
+<span class="order-status"><?=$block->escapeHtml($block->getOrder()->getStatusLabel())?></span>
+<?php if ($viewModel->isTransactionCaptured()):?>
+    <span><?=__('Transaction is captured.');?></span>
+<?php elseif ($viewModel->isTransactionPendingCapture()):?>
+    <span><?=__('Transaction is waiting for capture by blockchain.');?></span>
+<?php elseif ($viewModel->isShowButton()):?>
+    <a
+        class="order-status"
+        style="background-color: #1979c3;color: white;"
+        href="<?=$viewModel->getButtonLink()?>">
+        <?=__('Pay By ETH')?>
+    </a>
+<?php endif;?>

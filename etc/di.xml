@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Copyright © Ihor Oleksiienko (https://github.com/torys877)
+* See LICENSE for license details.
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\Locale\Config">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="allowedCurrencies" xsi:type="array">
+                    <item name="eth" xsi:type="string">ETH</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\Locale\TranslatedLists">
+        <plugin name="Crypto_MetamaskEthPayment::add_eth_currency" type="Crypto\MetamaskEthPayment\Plugin\Locale\TranslatedLists"/>
+    </type>
+
+
+    <virtualType name="MetamaskEthPaymentFacade" type="Magento\Payment\Model\Method\Adapter">
+        <arguments>
+            <argument name="code" xsi:type="const">Crypto\MetamaskEthPayment\Helper\ConfigReader::PAYMENT_CODE</argument>
+            <argument name="formBlockType" xsi:type="string">Magento\Payment\Block\Form\Cc</argument>
+            <argument name="infoBlockType" xsi:type="string">Crypto\MetamaskEthPayment\Block\Info</argument>
+            <argument name="valueHandlerPool" xsi:type="object">EtherValueHandlerPool</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="EtherValueHandlerPool" type="Magento\Payment\Gateway\Config\ValueHandlerPool">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="default" xsi:type="string">EtherConfigValueHandler</item>
+                <item name="active" xsi:type="string">Crypto\MetamaskEthPayment\Gateway\Config\ActiveValueHandler</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="EtherConfigValueHandler" type="Magento\Payment\Gateway\Config\ConfigValueHandler">
+        <arguments>
+            <argument name="configInterface" xsi:type="object">Crypto\MetamaskEthPayment\Gateway\Config\Config</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Crypto\MetamaskEthPayment\Gateway\Config\Config">
+        <arguments>
+            <argument name="methodCode" xsi:type="const">Crypto\MetamaskEthPayment\Helper\ConfigReader::PAYMENT_CODE</argument>
+        </arguments>
+    </type>
+</config>

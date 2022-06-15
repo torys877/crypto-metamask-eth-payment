@@ -1,0 +1,43 @@
+<?php
+/**
+* Copyright © Ihor Oleksiienko (https://github.com/torys877)
+* See LICENSE for license details.
+*/
+
+use Crypto\MetamaskEthPayment\ViewModel\EtherProcessing;
+/** @var \Magento\Framework\View\Element\Template $block */
+/** @var EtherProcessing $viewModel */
+$viewModel = $block->getViewModel();
+?>
+<div data-bind="scope: 'web3paymentscope'">
+    <div class="message" style="display: none"></div>
+    <button id="connect_wallet_button" type="submit" style="display: none" title="<?=__('Connect Wallet')?>" class="action primary" data-bind="click: connectWallet, visible: !isWalletConnected()">
+        <span><?=__('Connect Wallet')?></span>
+    </button>
+    <button id="pay_eth_button" type="submit" style="display: none" title="<?=__('Pay by Eth')?>" class="action primary" data-bind="click: sendTransaction, visible: isWalletConnected() && getCurrentAccount()">
+        <span><?=__('Pay by Eth')?></span>
+    </button>
+</div>
+
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                        "web3paymentscope": {
+                            "component": "Crypto_MetamaskEthPayment/js/web3payment",
+                            "merchantAddress": "<?= /* @noEscape */ $viewModel->getMerchantAddress() ?>",
+                            "networkVersion": "<?= /* @noEscape */ $viewModel->getNetworkVersion() ?>",
+                            "orderIncrement": "<?= /* @noEscape */ $viewModel->getOrderIncrement() ?>",
+                            "orderHash": "<?= /* @noEscape */ $viewModel->getOrderHash() ?>",
+                            "orderAmount": "<?= /* @noEscape */ $viewModel->getOrderEtherAmount() ?>",
+                            "addTxUrl": "<?= /* @noEscape */ $viewModel->getAddTxUrl() ?>",
+                            "thCheckAndConfirmUrl": "<?= /* @noEscape */ $viewModel->getThCheckAndConfirmUrl() ?>",
+                            "requestIntervalSeconds": "<?= /* @noEscape */ $viewModel->getRequestIntervalSeconds() ?>",
+                            "successUrl": "<?= /* @noEscape */ $viewModel->getSuccessUrl() ?>"
+                        }
+                    }
+                }
+            }
+    }
+</script>

@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Copyright © Ihor Oleksiienko (https://github.com/torys877)
+* See LICENSE for license details.
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="payment">
+            <group id="ether_payment" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>Ether Payment</label>
+                <field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="title" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Title</label>
+                </field>
+                <field id="network_version" translate="label" sortOrder="30" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Ether Network Version</label>
+                </field>
+                <field id="merchant_ether_address" translate="label" sortOrder="30" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Merchant Ether Address</label>
+                </field>
+                <field id="etherscan_url" translate="label" sortOrder="31" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Etherscan Url (to get url for transaction info)</label>
+                </field>
+                <field id="etherscan_check" translate="label" type="select" sortOrder="40" showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1">
+                    <label>Check Transaction on Etherscan</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <!-- own source model - client/server checking-->
+                </field>
+                <field id="etherscan_api_url" translate="label" sortOrder="50" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Etherscan Api Url</label>
+                    <depends>
+                        <field id="etherscan_check">1</field>
+                    </depends>
+                </field>
+                <field id="etherscan_api_key" translate="label" sortOrder="60" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Etherscan Api Key</label>
+                    <depends>
+                        <field id="etherscan_check">1</field>
+                    </depends>
+                </field>
+                <group id="test_mode" translate="label" type="text" sortOrder="1000" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Test Mode</label>
+                    <field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1"
+                           showInStore="1">
+                        <label>Enabled</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                    <field id="network_version" translate="label" sortOrder="30" showInDefault="1" showInWebsite="1"
+                           showInStore="1">
+                        <label>Test Ether Network Version</label>
+                    </field>
+                    <field id="merchant_ether_address" translate="label" sortOrder="30" showInDefault="1" showInWebsite="1"
+                           showInStore="1">
+                        <label>Test Merchant Ether Address</label>
+                    </field>
+                    <field id="etherscan_url" translate="label" sortOrder="31" showInDefault="1" showInWebsite="1"
+                           showInStore="1">
+                        <label>Test Etherscan Url (to get url for transaction info page)</label>
+                    </field>
+                    <field id="etherscan_check" translate="label" type="select" sortOrder="40" showInDefault="1"
+                           showInWebsite="1"
+                           showInStore="1">
+                        <label>Test Check Transaction on Etherscan</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <!-- own source model - client/server checking-->
+                    </field>
+                    <field id="etherscan_api_url" translate="label" sortOrder="50" showInDefault="1" showInWebsite="1"
+                           showInStore="1">
+                        <label>Test Etherscan Api Url</label>
+                        <depends>
+                            <field id="etherscan_check">1</field>
+                        </depends>
+                    </field>
+                    <field id="etherscan_api_key" translate="label" sortOrder="60" showInDefault="1" showInWebsite="1"
+                           showInStore="1">
+                        <label>Test Etherscan Api Key</label>
+                        <depends>
+                            <field id="etherscan_check">1</field>
+                        </depends>
+                    </field>
+                </group>
+            </group>
+        </section>
+    </system>
+</config>

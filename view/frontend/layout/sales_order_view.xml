@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Copyright © Ihor Oleksiienko (https://github.com/torys877)
+* See LICENSE for license details.
+*/
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="order.status" template="Crypto_MetamaskEthPayment::order/order_status.phtml">
+            <arguments>
+                <argument name="view_model" xsi:type="object">Crypto\MetamaskEthPayment\ViewModel\PaymentButton</argument>
+            </arguments>
+        </referenceBlock>
+    </body>
+</page>

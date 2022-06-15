@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Copyright © Ihor Oleksiienko (https://github.com/torys877)
+* See LICENSE for license details.
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="sales_order_payment_transaction_html_txn_id">
+        <observer name="MetamaskEthPayment::make_txn_html" instance="Crypto\MetamaskEthPayment\Observer\TxnHtml" />
+    </event>
+</config>

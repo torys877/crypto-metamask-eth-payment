@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Copyright © Ihor Oleksiienko (https://github.com/torys877)
+* See LICENSE for license details.
+*/
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="sales_order_item_renderers"/>
+    <update handle="sales_order_item_price"/>
+    <update handle="sales_order_guest_info_links"/>
+    <referenceContainer name="main">
+        <container name="content" label="Main Content Area">
+            <block class="Magento\Sales\Block\Order\View" name="sales.order.view" cacheable="false" after="sales.order.info.links">
+                <block class="Magento\Sales\Block\Order\Items" name="order_items" template="Magento_Sales::order/items.phtml">
+                    <block class="Magento\Framework\View\Element\RendererList" name="sales.order.items.renderers" as="renderer.list"/>
+                    <block class="Magento\Theme\Block\Html\Pager" name="sales_order_item_pager"/>
+                    <block class="Magento\Sales\Block\Order\Totals" name="order_totals" template="Magento_Sales::order/totals.phtml">
+                        <arguments>
+                            <argument name="label_properties" xsi:type="string">colspan="4" class="mark"</argument>
+                            <argument name="value_properties" xsi:type="string">class="amount"</argument>
+                        </arguments>
+                        <block class="Magento\Tax\Block\Sales\Order\Tax" name="tax" template="Magento_Tax::order/tax.phtml"/>
+                    </block>
+                </block>
+            </block>
+            <block template="Crypto_MetamaskEthPayment::payment/process.phtml" name="ether_processing" cacheable="false">
+                <arguments>
+                    <argument name="view_model" xsi:type="object">Crypto\MetamaskEthPayment\ViewModel\EtherProcessing</argument>
+                </arguments>
+            </block>
+        </container>
+    </referenceContainer>
+</page>
