@@ -70,7 +70,7 @@ Or add repositories from console:
 
 Install module:
 
-`composer require crypto/metamask-eth-payment:v1.0.0`
+`composer require cryptom2/metamask-eth-payment:v1.0.0`
 
 And run
 
