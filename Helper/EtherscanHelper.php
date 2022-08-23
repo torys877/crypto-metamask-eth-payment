@@ -34,12 +34,12 @@ class EtherscanHelper
 
     public function checkEtherscan(string $transactionHash)
     {
-        $etherScanUrl = $this->configReader->getEtherscanApiUrl() .
+        $etherScanStatusUrl = $this->configReader->getEtherscanApiUrl() .
             '?module=transaction&action=gettxreceiptstatus&txhash=' . $transactionHash .
             '&apikey=' . $this->configReader->getEtherscanApiKey();
         try {
-            $this->curl->get($etherScanUrl);
-            $result = $this->json->deserialize($this->curl->getBody());
+            $this->curl->get($etherScanStatusUrl);
+            $response = $this->json->deserialize($this->curl->getBody());
         } catch (\Exception $ex) {
             $this->logger->critical(
                 'Transaction with hash "' . $transactionHash . ' has CURL error, check logs'
@@ -51,15 +51,50 @@ class EtherscanHelper
         }
 
         if (
-            isset($result['status']) && isset($result['message']) &&
-            $result['status'] &&
-            $result['message'] == self::OK_MESSAGE &&
-            !empty($result['result']['status']) &&
-            $result['result']['status']
+            isset($response['status']) && isset($response['message']) &&
+            $response['status'] &&
+            $response['message'] == self::OK_MESSAGE &&
+            !empty($response['result']['status']) &&
+            $response['result']['status'] &&
+            $this->checkEtherscanData($transactionHash)
         ) {
             return true;
         }
 
         return false;
+    }
+
+    protected function checkEtherscanData(string $transactionHash)
+    {
+        $etherScanCheckUrl = $this->configReader->getEtherscanApiUrl() .
+            '?module=proxy&action=eth_getTransactionByHash&txhash=' . $transactionHash .
+            '&apikey=' . $this->configReader->getEtherscanApiKey();
+        try {
+            $this->curl->get($etherScanCheckUrl);
+            $response = $this->json->deserialize($this->curl->getBody());
+        } catch (\Exception $ex) {
+            $this->logger->critical(
+                'Transaction detail api with hash "' . $transactionHash . ' has CURL error, check logs'
+            );
+            $this->logger->critical($ex->getMessage());
+            $this->logger->critical($ex->getTraceAsString());
+
+            return false;
+        }
+
+        if (isset($response['error'])) {
+            return false;
+        }
+
+        if (
+            isset($response['result']) &&
+            isset($response['result']['to']) &&
+            $response['result']['to'] == $this->configReader->getMerchantAddress()
+        ) {
+            return true;
+        }
+
+        return false;
+
     }
 }
