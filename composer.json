@@ -1,6 +1,6 @@
 {
     "name": "cryptom2/metamask-eth-payment",
-    "version": "v1.0.0",
+    "version": "v1.0.1",
     "description": "Metamask & web3js Ethereum payment method Magento 2 module without any third party gateways",
     "type": "magento2-module",
     "authors": [
